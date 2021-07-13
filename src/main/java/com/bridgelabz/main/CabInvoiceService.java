@@ -9,4 +9,12 @@ public class CabInvoiceService {
         double totalFare = distance * PER_KILOMETER_COST + time * PER_MINUTE_COST;
         return Math.max(MAXIMUM_FARE, totalFare);
     }
+
+    public double fareCalculateForMultipleRides(Ride[] rides){
+        double aggregateFare = 0;
+        for (Ride ride : rides){
+            aggregateFare += fareCalculator(ride.distance, ride.time);
+        }
+        return aggregateFare;
+    }
 }
