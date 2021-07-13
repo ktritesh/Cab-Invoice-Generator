@@ -9,8 +9,4 @@ public class CabInvoiceService {
         double totalFare = distance * PER_KILOMETER_COST + time * PER_MINUTE_COST;
         return Math.max(MAXIMUM_FARE, totalFare);
     }
-
-    public static void main(String[] args) {
-        System.out.println("Welcome to Cab Invoice Generator");
-    }
 }
