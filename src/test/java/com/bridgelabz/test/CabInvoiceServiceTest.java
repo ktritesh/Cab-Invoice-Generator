@@ -3,6 +3,7 @@ package com.bridgelabz.test;
 import com.bridgelabz.main.CabInvoiceService;
 import com.bridgelabz.main.InvoiceSummary;
 import com.bridgelabz.main.Ride;
+import com.bridgelabz.main.RideRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,16 +45,12 @@ public class CabInvoiceServiceTest {
 
     @Test
     public void givenUserIdAndRide_shouldReturnInvoiceSummary() {
-        String userId = "ritesh@gmail.com";
-        Ride[] rides = {
-                new Ride(2.0, 5),
-                new Ride(0.1, 1),
-                new Ride(4.1, 25)
-        };
-        cabInvoiceService.addRides(userId);
-        InvoiceSummary invoiceSummary = cabInvoiceService.getInvoiceSummary(rides);
-        InvoiceSummary fare = new InvoiceSummary(3, 96);
-        Assertions.assertEquals(fare, invoiceSummary);
-        Assertions.assertEquals(rides.length, cabInvoiceService.getRidesByUserId(userId).size());
+        cabInvoiceService.addRides("abc", new Ride[] { new Ride(2.0, 5), new Ride(0.1, 1)});
+        cabInvoiceService.addRides("def", new Ride[] { new Ride(5.0, 5), new Ride(0.1, 1)});
+        InvoiceSummary actualInvoiceSummary = cabInvoiceService.getInvoiceSummary("def");
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 60);
+        Assertions.assertEquals(expectedInvoiceSummary, actualInvoiceSummary);
+        RideRepository rideRepository = new RideRepository();
+        System.out.println(rideRepository);
     }
 }
